@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskFlow — Vanilla JS Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 aria-label="TaskFlow Task Manager">
+      <span class="logo">✅</span> TaskFlow
+    </h1>
+
+    <div class="controls">
+      <button id="themeToggle" class="btn" aria-label="Toggle dark mode" title="Toggle theme">🌓</button>
+      <button id="exportBtn" class="btn" aria-label="Export tasks" title="Export tasks">⤓ Export</button>
+      <label class="file-btn" title="Import tasks (JSON)">
+        ⤒ Import
+        <input id="importInput" type="file" accept="application/json" />
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="new-task" aria-labelledby="addTaskTitle">
+      <h2 id="addTaskTitle">Add Task</h2>
+      <form id="taskForm" autocomplete="off">
+        <div class="grid">
+          <label>
+            <span>Title</span>
+            <input required id="title" name="title" placeholder="e.g., Finish report" />
+          </label>
+
+          <label>
+            <span>Due date</span>
+            <input id="due" name="due" type="date" />
+          </label>
+
+          <label>
+            <span>Priority</span>
+            <select id="priority" name="priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+
+          <label class="full">
+            <span>Notes (optional)</span>
+            <textarea id="notes" name="notes" rows="2" placeholder="Any details…"></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Add Task</button>
+          <button type="reset" class="btn">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="toolbar" aria-label="Task tools">
+      <input id="search" class="search" placeholder="Search tasks…" aria-label="Search tasks" />
+
+      <div class="filters">
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
+        </select>
+
+        <select id="priorityFilter" aria-label="Filter by priority">
+          <option value="all">Any priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <select id="sortBy" aria-label="Sort by">
+          <option value="created-desc">Newest</option>
+          <option value="created-asc">Oldest</option>
+          <option value="due-asc">Due date ↑</option>
+          <option value="due-desc">Due date ↓</option>
+          <option value="priority-desc">Priority High→Low</option>
+          <option value="priority-asc">Priority Low→High</option>
+          <option value="title-asc">Title A→Z</option>
+          <option value="title-desc">Title Z→A</option>
+        </select>
+
+        <button id="clearCompleted" class="btn" title="Clear completed tasks">Clear Completed</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="listTitle" class="list-wrap">
+      <h2 id="listTitle" class="sr-only">Tasks</h2>
+      <ul id="taskList" class="task-list" aria-live="polite"></ul>
+
+      <p id="emptyState" class="empty">
+        No tasks yet. Add one above to get started!
+      </p>
+    </section>
+  </main>
+
+  <template id="taskItemTemplate">
+    <li class="task" draggable="true">
+      <div class="drag" title="Drag to reorder" aria-hidden="true">⋮⋮</div>
+
+      <label class="check">
+        <input type="checkbox" class="toggle" />
+        <span class="tick" aria-hidden="true"></span>
+      </label>
+
+      <div class="content">
+        <div class="row">
+          <input class="title-input" />
+          <span class="chip priority"></span>
+          <span class="chip due"></span>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…"></textarea>
+        <div class="meta">
+          <span class="created"></span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn icon delete" title="Delete">🗑️</button>
+      </div>
+    </li>
+  </template>
+
+  <footer class="app-footer">
+    <small>Built with ♥ — HTML5, CSS3, and JavaScript (no frameworks).</small>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
